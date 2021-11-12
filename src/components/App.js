@@ -6,9 +6,11 @@ import { useEffect } from "react";
 function App() {
   const [init, setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userObj, setUserObj] = useState(null);
   useEffect(() => {
     authService.onAuthStateChanged((user) =>{
       if (user) {
+        setUserObj(user);
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
@@ -18,7 +20,7 @@ function App() {
   }, []);
   return (
     <>
-      {init ? <AppRouter isLoggedIn={isLoggedIn} /> : "initializing..."}
+      {init ? <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} /> : "initializing..."}
       <footer>&copy; Twitter_clone 2021</footer>
     </>
   );
